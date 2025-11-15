@@ -1,0 +1,116 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Your Sorry's - Voting Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        header, footer {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+        form button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Save Your Sorry's</h1>
+        <p>Listen to the songs below and vote for your favourite!</p>
+    </header>
+
+    <main>
+
+        <!-- SONG 1 -->
+        <section>
+            <h2>Save Your Sorry's – Song 1</h2>
+            <audio controls>
+                <source src="https://raw.githubusercontent.com/Eva-Lora/Eva-and-Lora/main/Save%20Your%20Sorry's-1.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            </audio>
+        </section>
+
+        <!-- SONG 2 -->
+        <section>
+            <h2>Save Your Sorry's – Song 2</h2>
+            <audio controls>
+                <source src="https://raw.githubusercontent.com/Eva-Lora/Eva-and-Lora/main/Save%20Your%20Sorry's-2.mp3" type="audio/mpeg">
+                Your browser does not support audio playback.
+            </audio>
+        </section>
+
+        <!-- SONGS 3–10 placeholders -->
+        <section>
+            <h2>Tracks 3–10 (coming soon)</h2>
+            <ul>
+                <li>Save Your Sorry's – Song 3</li>
+                <li>Save Your Sorry's – Song 4</li>
+                <li>Save Your Sorry's – Song 5</li>
+                <li>Save Your Sorry's – Song 6</li>
+                <li>Save Your Sorry's – Song 7</li>
+                <li>Save Your Sorry's – Song 8</li>
+                <li>Save Your Sorry's – Song 9</li>
+                <li>Save Your Sorry's – Song 10</li>
+            </ul>
+        </section>
+
+        <!-- VOTING FORM -->
+        <section>
+            <h2>Vote for Your Favourite Song</h2>
+            <form action="submit_vote.html" method="post">
+                <label><input type="radio" name="vote" value="song1"> Save Your Sorry's – Song 1</label><br>
+                <label><input type="radio" name="vote" value="song2"> Save Your Sorry's – Song 2</label><br>
+                <label><input type="radio" name="vote" value="song3"> Save Your Sorry's – Song 3</label><br>
+                <label><input type="radio" name="vote" value="song4"> Save Your Sorry's – Song 4</label><br>
+                <label><input type="radio" name="vote" value="song5"> Save Your Sorry's – Song 5</label><br>
+                <label><input type="radio" name="vote" value="song6"> Save Your Sorry's – Song 6</label><br>
+                <label><input type="radio" name="vote" value="song7"> Save Your Sorry's – Song 7</label><br>
+                <label><input type="radio" name="vote" value="song8"> Save Your Sorry's – Song 8</label><br>
+                <label><input type="radio" name="vote" value="song9"> Save Your Sorry's – Song 9</label><br>
+                <label><input type="radio" name="vote" value="song10"> Save Your Sorry's – Song 10</label><br>
+                <button type="submit">Submit Vote</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Save Your Sorry's Project</p>
+    </footer>
+</body>
+</html>
