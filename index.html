@@ -36,15 +36,16 @@ footer { text-align:center; color:#bbb; margin-top:20px;}
 </div>
 
 <h1>Eva & Lora — Save Your Sorry's</h1>
-<p class="lead">Click the ⭐ to vote for your favourite version — the number updates immediately.</p>
+<p class="lead">Click the ⭐ to vote for your favourite version — votes are shared online for everyone!</p>
 
 <div id="tracks"></div>
 
-<footer>Votes are stored in your browser. Each device can vote once per track.</footer>
+<footer>Votes are stored online for all users.</footer>
 </div>
 
 <script>
 // --- CONFIG ---
+const namespace = 'eva-lora-votes';
 const tracks = [
   "Save Your Sorry's-1.mp3","Save Your Sorry's-2.mp3","Eva 3.mp3","Eva 4.mp3","Eva 5.mp3",
   "Eva 6.mp3","Eva 7.mp3","Eva 8.mp3","Eva 9.mp3","Eva-10.mp3",
@@ -54,8 +55,7 @@ const tracks = [
 
 const tracksContainer = document.getElementById('tracks');
 
-// --- CREATE TRACK ELEMENTS ---
-tracks.forEach((file, idx) => {
+tracks.forEach((file, idx)=>{
   const trackNum = idx+1;
   const trackId = `track${trackNum}`;
 
@@ -67,39 +67,49 @@ tracks.forEach((file, idx) => {
       <audio class="audio" controls preload="none">
         <source src="${encodeURI(file)}" type="audio/mpeg">
       </audio>
-      <div class="below-count">Votes: <span id="below-${trackId}">0</span></div>
+      <div class="below-count">Votes: <span id="below-${trackId}">—</span></div>
     </div>
     <div class="vote-area">
       <button class="star-btn" id="btn-${trackId}">⭐</button>
-      <div class="star-count" id="count-${trackId}">0</div>
+      <div class="star-count" id="count-${trackId}">—</div>
     </div>
   `;
   tracksContainer.appendChild(div);
 
-  // --- LOCAL COUNTER ---
   const btn = div.querySelector(`#btn-${trackId}`);
   const countSpan = div.querySelector(`#count-${trackId}`);
   const belowSpan = div.querySelector(`#below-${trackId}`);
   const storageKey = `voted_${trackId}`;
 
-  // Restore vote if already voted on this browser
-  if(localStorage.getItem(storageKey)) {
-    btn.classList.add('star-glow');
-    btn.disabled = true;
-  }
+  // --- LOAD CURRENT VOTES ---
+  fetch(`https://api.countapi.xyz/get/${namespace}/${trackId}`)
+    .then(r=>r.json())
+    .then(data=>{
+      countSpan.textContent = data.value;
+      belowSpan.textContent = data.value;
+    })
+    .catch(_=>{ countSpan.textContent='0'; belowSpan.textContent='0'; });
 
+  // --- VOTE CLICK ---
   btn.addEventListener('click', ()=>{
     if(localStorage.getItem(storageKey)) return;
-    let current = parseInt(countSpan.textContent) || 0;
-    current++;
-    countSpan.textContent = current;
-    belowSpan.textContent = current;
     btn.classList.add('star-glow');
     btn.style.transform='scale(1.25)';
     setTimeout(()=>btn.style.transform='scale(1)',300);
-    localStorage.setItem(storageKey,'1');
-    btn.disabled = true;
+    fetch(`https://api.countapi.xyz/hit/${namespace}/${trackId}`)
+      .then(r=>r.json())
+      .then(data=>{
+        countSpan.textContent = data.value;
+        belowSpan.textContent = data.value;
+        localStorage.setItem(storageKey,'1');
+      })
+      .catch(err=>console.error(err));
   });
+
+  if(localStorage.getItem(storageKey)){
+    btn.classList.add('star-glow');
+    btn.disabled = true;
+  }
 });
 </script>
 </body>
