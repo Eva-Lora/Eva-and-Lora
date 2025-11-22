@@ -38,16 +38,13 @@ footer { text-align:center; color:#bbb; margin-top:20px;}
 <h1>Eva & Lora — Save Your Sorry's</h1>
 <p class="lead">Click the ⭐ to vote for your favourite version — the number updates immediately.</p>
 
-<div id="tracks">
-  <!-- Track template repeated 17 times -->
-</div>
+<div id="tracks"></div>
 
-<footer>Votes are stored online. Each browser/device can vote once per track.</footer>
+<footer>Votes are stored in your browser. Each device can vote once per track.</footer>
 </div>
 
 <script>
 // --- CONFIG ---
-const namespace = 'eva-lora-votes';
 const tracks = [
   "Save Your Sorry's-1.mp3","Save Your Sorry's-2.mp3","Eva 3.mp3","Eva 4.mp3","Eva 5.mp3",
   "Eva 6.mp3","Eva 7.mp3","Eva 8.mp3","Eva 9.mp3","Eva-10.mp3",
@@ -70,51 +67,39 @@ tracks.forEach((file, idx) => {
       <audio class="audio" controls preload="none">
         <source src="${encodeURI(file)}" type="audio/mpeg">
       </audio>
-      <div class="below-count">Votes: <span id="below-${trackId}">—</span></div>
+      <div class="below-count">Votes: <span id="below-${trackId}">0</span></div>
     </div>
     <div class="vote-area">
       <button class="star-btn" id="btn-${trackId}">⭐</button>
-      <div class="star-count" id="count-${trackId}">—</div>
+      <div class="star-count" id="count-${trackId}">0</div>
     </div>
   `;
   tracksContainer.appendChild(div);
 
-  // --- INITIALIZE COUNT ---
+  // --- LOCAL COUNTER ---
   const btn = div.querySelector(`#btn-${trackId}`);
   const countSpan = div.querySelector(`#count-${trackId}`);
   const belowSpan = div.querySelector(`#below-${trackId}`);
-  const storageKey = `eva_voted_${trackId}`;
+  const storageKey = `voted_${trackId}`;
 
-  fetch(`https://api.countapi.xyz/get/${namespace}/${trackId}`)
-    .then(r=>r.ok?r.json():Promise.reject(r))
-    .then(data=>{
-      if(data && typeof data.value!=='undefined'){
-        countSpan.textContent = data.value;
-        belowSpan.textContent = data.value;
-      } else { countSpan.textContent='0'; belowSpan.textContent='0'; }
-    }).catch(_=>{ countSpan.textContent='0'; belowSpan.textContent='0'; });
+  // Restore vote if already voted on this browser
+  if(localStorage.getItem(storageKey)) {
+    btn.classList.add('star-glow');
+    btn.disabled = true;
+  }
 
-  // --- STAR VOTE CLICK ---
   btn.addEventListener('click', ()=>{
     if(localStorage.getItem(storageKey)) return;
+    let current = parseInt(countSpan.textContent) || 0;
+    current++;
+    countSpan.textContent = current;
+    belowSpan.textContent = current;
     btn.classList.add('star-glow');
     btn.style.transform='scale(1.25)';
     setTimeout(()=>btn.style.transform='scale(1)',300);
-    fetch(`https://api.countapi.xyz/hit/${namespace}/${trackId}`)
-      .then(r=>r.ok?r.json():Promise.reject(r))
-      .then(data=>{
-        if(data && typeof data.value!=='undefined'){
-          countSpan.textContent = data.value;
-          belowSpan.textContent = data.value;
-          localStorage.setItem(storageKey,'1');
-        }
-      }).catch(err=>console.error(err));
+    localStorage.setItem(storageKey,'1');
+    btn.disabled = true;
   });
-
-  if(localStorage.getItem(storageKey)){
-    btn.classList.add('star-glow');
-    btn.style.opacity='0.6';
-  }
 });
 </script>
 </body>
