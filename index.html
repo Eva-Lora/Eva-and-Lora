@@ -5,28 +5,24 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Eva & Lora — Save Your Sorry's Voting</title>
 <style>
-body {
-  margin:0; padding:0;
-  font-family:system-ui, sans-serif;
-  background:#000; color:#eee;
-}
-.container { max-width:980px; margin:20px auto; padding:10px;}
-h1 { text-align:center; font-size:1.8rem; margin-bottom:5px;}
-.lead { text-align:center; color:#bbb; margin-bottom:20px;}
-.video-wrap { text-align:center; margin-bottom:20px;}
-video { width:100%; max-width:640px; border-radius:12px;}
-.track { background: rgba(255,255,255,0.03); padding:12px; border-radius:10px; margin-bottom:10px; display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center;}
-.track-info { flex:1; min-width:220px;}
-.track-title { font-weight:700; margin-bottom:6px;}
-.audio { width:100%; margin-bottom:6px;}
-.vote-area { display:flex; flex-direction:column; align-items:center; min-width:90px;}
+body { margin:0; padding:0; font-family:system-ui, sans-serif; background:#000; color:#eee; }
+.container { max-width:980px; margin:20px auto; padding:10px; }
+h1 { text-align:center; font-size:1.8rem; margin-bottom:5px; }
+.lead { text-align:center; color:#bbb; margin-bottom:20px; }
+.video-wrap { text-align:center; margin-bottom:20px; }
+video { width:100%; max-width:640px; border-radius:12px; }
+.track { background: rgba(255,255,255,0.03); padding:12px; border-radius:10px; margin-bottom:10px; display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center; }
+.track-info { flex:1; min-width:220px; }
+.track-title { font-weight:700; margin-bottom:6px; }
+.audio { width:100%; margin-bottom:6px; }
+.vote-area { display:flex; flex-direction:column; align-items:center; min-width:90px; }
 .star-btn { cursor:pointer; font-size:30px; background:transparent; border:none; transition:transform .15s; }
 .star-btn:active { transform:scale(1.1); }
 .star-glow { color:#ffd700; animation:pulse 1s infinite; }
 @keyframes pulse { 0%,100% {text-shadow:0 0 4px #ffd700,0 0 8px #ffd700;} 50% {text-shadow:0 0 10px #ffd700,0 0 20px #ffd700;} }
 .star-count { color:#ffd700; font-weight:700; font-size:1rem; }
-.below-count { color:#bbb; font-size:0.9rem; margin-top:5px; text-align:center;}
-footer { text-align:center; color:#bbb; margin-top:20px;}
+.below-count { color:#bbb; font-size:0.9rem; margin-top:5px; text-align:center; }
+footer { text-align:center; color:#bbb; margin-top:20px; }
 </style>
 </head>
 <body>
@@ -42,115 +38,86 @@ footer { text-align:center; color:#bbb; margin-top:20px;}
 <h1>Eva & Lora — Save Your Sorry's</h1>
 <p class="lead">Tell us which version you like best! Click the ⭐ to vote — the number updates for everyone.</p>
 
-<!-- TRACKS -->
+<!-- TRACKS 1–17 -->
 <div class="track">
   <div class="track-info">
     <div class="track-title">1. Save Your Sorry's-1</div>
-    <audio class="audio" controls preload="none">
-      <source src="Save Your Sorry's-1.mp3" type="audio/mpeg">
-    </audio>
+    <audio class="audio" controls preload="none"><source src="Save Your Sorry's-1.mp3" type="audio/mpeg"></audio>
     <div class="below-count">Votes: <span id="below-track1">—</span></div>
   </div>
-  <div class="vote-area">
-    <button class="star-btn" id="btn-track1">⭐</button>
-    <div class="star-count" id="count-track1">—</div>
-  </div>
+  <div class="vote-area"><button class="star-btn" id="btn-track1">⭐</button><div class="star-count" id="count-track1">—</div></div>
 </div>
 
 <div class="track">
   <div class="track-info">
     <div class="track-title">2. Save Your Sorry's-2</div>
-    <audio class="audio" controls preload="none">
-      <source src="Save Your Sorry's-2.mp3" type="audio/mpeg">
-    </audio>
+    <audio class="audio" controls preload="none"><source src="Save Your Sorry's-2.mp3" type="audio/mpeg"></audio>
     <div class="below-count">Votes: <span id="below-track2">—</span></div>
   </div>
-  <div class="vote-area">
-    <button class="star-btn" id="btn-track2">⭐</button>
-    <div class="star-count" id="count-track2">—</div>
-  </div>
+  <div class="vote-area"><button class="star-btn" id="btn-track2">⭐</button><div class="star-count" id="count-track2">—</div></div>
 </div>
 
-<!-- Add remaining tracks 3–17 in same format -->
-<div class="track">
-  <div class="track-info">
-    <div class="track-title">3. Eva 3</div>
-    <audio class="audio" controls preload="none">
-      <source src="Eva 3.mp3" type="audio/mpeg">
-    </audio>
-    <div class="below-count">Votes: <span id="below-track3">—</span></div>
-  </div>
-  <div class="vote-area">
-    <button class="star-btn" id="btn-track3">⭐</button>
-    <div class="star-count" id="count-track3">—</div>
-  </div>
-</div>
+<div class="track"><div class="track-info"><div class="track-title">3. Eva 3</div><audio class="audio" controls preload="none"><source src="Eva 3.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track3">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track3">⭐</button><div class="star-count" id="count-track3">—</div></div></div>
 
-<!-- Repeat similar blocks for tracks 4 to 17 -->
-<!-- Example for track 4 -->
-<div class="track">
-  <div class="track-info">
-    <div class="track-title">4. Eva 4</div>
-    <audio class="audio" controls preload="none">
-      <source src="Eva 4.mp3" type="audio/mpeg">
-    </audio>
-    <div class="below-count">Votes: <span id="below-track4">—</span></div>
-  </div>
-  <div class="vote-area">
-    <button class="star-btn" id="btn-track4">⭐</button>
-    <div class="star-count" id="count-track4">—</div>
-  </div>
-</div>
+<div class="track"><div class="track-info"><div class="track-title">4. Eva 4</div><audio class="audio" controls preload="none"><source src="Eva 4.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track4">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track4">⭐</button><div class="star-count" id="count-track4">—</div></div></div>
 
-<!-- ... Continue for tracks 5 to 17 ... -->
+<div class="track"><div class="track-info"><div class="track-title">5. Eva 5</div><audio class="audio" controls preload="none"><source src="Eva 5.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track5">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track5">⭐</button><div class="star-count" id="count-track5">—</div></div></div>
+
+<div class="track"><div class="track-info"><div class="track-title">6. Eva 6</div><audio class="audio" controls preload="none"><source src="Eva 6.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track6">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track6">⭐</button><div class="star-count" id="count-track6">—</div></div></div>
+
+<div class="track"><div class="track-info"><div class="track-title">7. Eva 7</div><audio class="audio" controls preload="none"><source src="Eva 7.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track7">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track7">⭐</button><div class="star-count" id="count-track7">—</div></div></div>
+
+<div class="track"><div class="track-info"><div class="track-title">8. Eva 8</div><audio class="audio" controls preload="none"><source src="Eva 8.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track8">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track8">⭐</button><div class="star-count" id="count-track8">—</div></div></div>
+
+<div class="track"><div class="track-info"><div class="track-title">9. Eva 9</div><audio class="audio" controls preload="none"><source src="Eva 9.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track9">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track9">⭐</button><div class="star-count" id="count-track9">—</div></div></div>
+
+<div class="track"><div class="track-info"><div class="track-title">10. Eva 10</div><audio class="audio" controls preload="none"><source src="Eva-10.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track10">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track10">⭐</button><div class="star-count" id="count-track10">—</div></div></div>
+
+<div class="track"><div class="track-info"><div class="track-title">11. Lora 11</div><audio class="audio" controls preload="none"><source src="Lora-11.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track11">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track11">⭐</button><div class="star-count" id="count-track11">—</div></div></div>
+
+<div class="track"><div class="track-info"><div class="track-title">12. Lora 12</div><audio class="audio" controls preload="none"><source src="Lora-12.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track12">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track12">⭐</button><div class="star-count" id="count-track12">—</div></div></div>
+
+<div class="track"><div class="track-info"><div class="track-title">13. Lora 13</div><audio class="audio" controls preload="none"><source src="Lora-13.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track13">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track13">⭐</button><div class="star-count" id="count-track13">—</div></div></div>
+
+<div class="track"><div class="track-info"><div class="track-title">14. Lora 14</div><audio class="audio" controls preload="none"><source src="Lora-14.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track14">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track14">⭐</button><div class="star-count" id="count-track14">—</div></div></div>
+
+<div class="track"><div class="track-info"><div class="track-title">15. Lora 15</div><audio class="audio" controls preload="none"><source src="Lora-15.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track15">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track15">⭐</button><div class="star-count" id="count-track15">—</div></div></div>
+
+<div class="track"><div class="track-info"><div class="track-title">16. Lora 16</div><audio class="audio" controls preload="none"><source src="Lora-16.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track16">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track16">⭐</button><div class="star-count" id="count-track16">—</div></div></div>
+
+<div class="track"><div class="track-info"><div class="track-title">17. Loria 17</div><audio class="audio" controls preload="none"><source src="Loria-17.mp3" type="audio/mpeg"></audio><div class="below-count">Votes: <span id="below-track17">—</span></div></div><div class="vote-area"><button class="star-btn" id="btn-track17">⭐</button><div class="star-count" id="count-track17">—</div></div></div>
 
 <footer>Votes are stored online. Each browser/device can vote once per track.</footer>
 </div>
 
 <script>
-// CONFIG
 const namespace = 'eva-lora-votes';
-const totalTracks = 17;
+for(let i=1;i<=17;i++){
+  const btn=document.getElementById(`btn-track${i}`);
+  const count=document.getElementById(`count-track${i}`);
+  const below=document.getElementById(`below-track${i}`);
+  const storageKey=`eva_voted_track${i}`;
 
-// Initialize all track votes
-for (let i = 1; i <= totalTracks; i++) {
-  const btn = document.getElementById(`btn-track${i}`);
-  const count = document.getElementById(`count-track${i}`);
-  const below = document.getElementById(`below-track${i}`);
-  const storageKey = `eva_voted_track${i}`;
-
-  // Load initial count from CountAPI
   fetch(`https://api.countapi.xyz/get/${namespace}/track${i}`)
     .then(r=>r.ok?r.json():Promise.reject(r))
     .then(data=>{
-      if(data && typeof data.value !== 'undefined'){
-        count.textContent = data.value;
-        below.textContent = data.value;
-      } else { count.textContent='0'; below.textContent='0'; }
-    }).catch(_=>{ count.textContent='0'; below.textContent='0'; });
+      if(data && typeof data.value!=='undefined'){count.textContent=data.value; below.textContent=data.value;}
+      else{count.textContent='0'; below.textContent='0';}
+    }).catch(_=>{count.textContent='0'; below.textContent='0';});
 
-  // Handle voting
-  btn.addEventListener('click', ()=>{
+  btn.addEventListener('click',()=>{
     if(localStorage.getItem(storageKey)) return;
     btn.classList.add('star-glow');
     btn.style.transform='scale(1.25)';
     setTimeout(()=>btn.style.transform='scale(1)',300);
-
     fetch(`https://api.countapi.xyz/hit/${namespace}/track${i}`)
       .then(r=>r.ok?r.json():Promise.reject(r))
       .then(data=>{
-        if(data && typeof data.value!=='undefined'){
-          count.textContent = data.value;
-          below.textContent = data.value;
-          localStorage.setItem(storageKey,'1');
-        }
+        if(data && typeof data.value!=='undefined'){count.textContent=data.value; below.textContent=data.value; localStorage.setItem(storageKey,'1');}
       }).catch(err=>console.error(err));
   });
 
-  if(localStorage.getItem(storageKey)){
-    btn.classList.add('star-glow');
-    btn.style.opacity='0.6';
-  }
+  if(localStorage.getItem(storageKey)){btn.classList.add('star-glow'); btn.style.opacity='0.6';}
 }
 </script>
 </body>
