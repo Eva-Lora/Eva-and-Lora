@@ -14,7 +14,7 @@
   --max-width:980px;
 }
 html,body{height:100%; margin:0; padding:0; background:var(--bg); color:var(--text); font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
-/* page layout */
+/* layout */
 .container{max-width:var(--max-width); margin:28px auto; padding:14px; position:relative; z-index:2;}
 .video-wrap{background:#000; border-radius:12px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.6);}
 video{display:block; width:100%; height:auto;}
@@ -41,7 +41,7 @@ video{display:block; width:100%; height:auto;}
 @keyframes pulseGlow{0%{text-shadow:0 0 4px #ffd700,0 0 8px #ffd700,0 0 10px #ffd700;}50%{text-shadow:0 0 8px #ffd700,0 0 16px #ffd700,0 0 22px #ffd700;}100%{text-shadow:0 0 4px #ffd700,0 0 8px #ffd700,0 0 10px #ffd700;}}
 .star-glow{color:var(--accent); animation:pulseGlow 1s infinite;}
 
-/* background stars (subtle) */
+/* background stars */
 body::before{
   content:""; position:fixed; inset:0; z-index:0;
   background-image:
@@ -74,7 +74,7 @@ footer{color:var(--muted); text-align:center; margin-top:18px; font-size:0.9rem;
 <body>
   <div class="container">
     <div class="video-wrap" aria-hidden="false">
-      <video id="topVideo" autoplay loop muted playsinline>
+      <video id="topVideo" autoplay playsinline controls>
         <source src="Thanks-2.mp4" type="video/mp4">
         Your browser does not support video playback.
       </video>
@@ -89,7 +89,7 @@ footer{color:var(--muted); text-align:center; margin-top:18px; font-size:0.9rem;
 
     <div id="tracks" class="track-list" aria-live="polite"></div>
 
-    <footer>Votes are saved online so totals are visible to everyone. Each device/browser can vote once per track (local browser memory used to reduce accidental double votes).</footer>
+    <footer>Votes are saved online so totals are visible to everyone. Each device/browser can vote once per track.</footer>
   </div>
 
 <script>
@@ -111,105 +111,11 @@ const audioFiles = [
   "Lora-14.mp3",
   "Lora-15.mp3",
   "Lora-16.mp3",
-  "Loria-17.mp3"  /* kept your filename exactly, typo included */
+  "Loria-17.mp3"
 ];
 const N_TRACKS = audioFiles.length;
-const namespace = 'eva-lora-votes'; // CountAPI namespace (public integer counters)
-/* --------------------------------------------------------------- */
-
+const namespace = 'eva-lora-votes'; // your CountAPI namespace
 const tracksContainer = document.getElementById('tracks');
 function makeSrc(name){ return encodeURI(name); }
 
-for (let i = 0; i < N_TRACKS; i++) {
-  const idx = i + 1;
-  const key = `track${idx}`;
-  const trackEl = document.createElement('div');
-  trackEl.className = 'track';
-  trackEl.innerHTML = `
-    <div class="track-info">
-      <div class="track-title">${idx}. ${audioFiles[i].replace(/\.[^/.]+$/, "")}</div>
-      <audio class="audio" controls preload="none">
-        <source src="${makeSrc(audioFiles[i])}" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
-      <div class="below-count" id="below-${key}">Votes: <span id="below-num-${key}">—</span></div>
-    </div>
-    <div class="vote-area">
-      <button class="star-btn" aria-label="Vote for version ${idx}" id="btn-${key}" title="Click to vote for version ${idx}">⭐</button>
-      <div class="star-count" id="count-${key}">—</div>
-    </div>
-  `;
-  tracksContainer.appendChild(trackEl);
-
-  // fetch initial count
-  (function(fetchKey){
-    const countSpan = document.getElementById(`count-${fetchKey}`);
-    const belowSpan = document.getElementById(`below-num-${fetchKey}`);
-    fetch(`https://api.countapi.xyz/get/${namespace}/${fetchKey}`)
-      .then(r => r.ok ? r.json() : Promise.reject(r))
-      .then(data => {
-        if (data && typeof data.value !== 'undefined') {
-          countSpan.textContent = data.value;
-          belowSpan.textContent = data.value;
-        } else {
-          countSpan.textContent = '0';
-          belowSpan.textContent = '0';
-        }
-      }).catch(_ => {
-        countSpan.textContent = '0';
-        belowSpan.textContent = '0';
-      });
-  })(key);
-
-  // attach vote handler
-  (function(clickKey){
-    const btn = document.getElementById(`btn-${clickKey}`);
-    const countSpan = document.getElementById(`count-${clickKey}`);
-    const belowSpan = document.getElementById(`below-num-${clickKey}`);
-    const storageKey = `eva_voted_${clickKey}`;
-
-    btn.addEventListener('click', () => {
-      // local prevent-double-vote
-      if (localStorage.getItem(storageKey)) {
-        btn.style.opacity = '0.6';
-        btn.style.transform = 'scale(0.98)';
-        return;
-      }
-      // visual feedback: glow + pop
-      btn.classList.add('star-glow');
-      btn.style.transform = 'scale(1.25)';
-      setTimeout(()=> btn.style.transform = 'scale(1)', 300);
-
-      // increment via CountAPI (public service)
-      fetch(`https://api.countapi.xyz/hit/${namespace}/${clickKey}`)
-        .then(r => r.ok ? r.json() : Promise.reject(r))
-        .then(data => {
-          if (data && typeof data.value !== 'undefined') {
-            countSpan.textContent = data.value;
-            belowSpan.textContent = data.value;
-            try { localStorage.setItem(storageKey, '1'); } catch(e){}
-          }
-        }).catch(err => {
-          console.error('Vote error', err);
-          // fallback: try to read current value
-          fetch(`https://api.countapi.xyz/get/${namespace}/${clickKey}`)
-            .then(r => r.ok ? r.json() : Promise.reject(r))
-            .then(data => {
-              if (data && typeof data.value !== 'undefined') {
-                countSpan.textContent = data.value;
-                belowSpan.textContent = data.value;
-              }
-            }).catch(()=>{});
-        });
-    });
-
-    // if already voted from this browser, show glow
-    if (localStorage.getItem(storageKey)) {
-      btn.classList.add('star-glow');
-      btn.style.opacity = '0.6';
-    }
-  })(key);
-}
-</script>
-</body>
-</html>
+for (let i = 0;
